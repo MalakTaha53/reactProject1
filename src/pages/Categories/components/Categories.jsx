@@ -12,7 +12,7 @@ function Categories() {
   const [searchCategory, setSearchCategory] = useState("");
   const getProducts = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/active?page=1&limit=9`);
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/active?page=1&limit=10`);
       setCategories(data.categories);
       setError("");
     } catch (error) {
@@ -24,6 +24,7 @@ function Categories() {
   const getSearchProducts = async () => {
     try {
       const { result } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/${searchCategory}`);
+      console.log(result.Categories);
       setCategories(result.categories);
       setError("");
     } catch (error) {

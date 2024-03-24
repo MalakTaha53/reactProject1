@@ -10,6 +10,7 @@ function ProductsWithCategory() {
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState("");
   const { id } = useParams();
+
   const getProductsWithCategories = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/products/category/${id}`);
@@ -32,8 +33,8 @@ function ProductsWithCategory() {
             <h2>All Products </h2>
           </div>
           <div className="row row-gap-2">
-            {products.map((product) => (
-              <NavLink className="text-decoration-none col-2" to={`/product/${product._id}`}>
+            {(products.length > 0) ? products.map((product) => (
+              <NavLink className="text-decoration-none col-2" to={`/product/${product._id}`} key={product._id}>
                 <div
                   className="card"
                   style={{ width: "10rem", height: "18rem" }}
@@ -47,7 +48,7 @@ function ProductsWithCategory() {
                   <h6 className="text-capitalize text-center ">{product.name}</h6>
                 </div>
               </NavLink>
-            ))}
+            )) : <h3 className='text-center'>No Products in this Category </h3>}
           </div>
         </div>
       </div>

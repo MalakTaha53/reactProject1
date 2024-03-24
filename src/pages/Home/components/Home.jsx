@@ -9,6 +9,7 @@ function Home() {
   const [categories, setCategories] = useState([]);
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState("");
+
   const getProducts = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/active?page=1&limit=9`);
@@ -45,8 +46,8 @@ function Home() {
               className={Style.down}
             >
               {categories.map((category) => (
-                <SwiperSlide>
-                  <div className="card col w-100 h-100" key={category._id}>
+                <SwiperSlide key={category._id}>
+                  <div className="card col w-100 h-100">
                     <img
                       src={category.image.secure_url}
                       className="card-img-top p-2"

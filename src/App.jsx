@@ -12,8 +12,16 @@ import Product from './pages/Product/components/Product.jsx'
 import Cart from './pages/Cart/components/Cart.jsx'
 import ProductsWithCategory from './pages/ProductsWithCategory/components/ProductsWithCategory.jsx'
 import NotFound from './pages/NotFound/components/NotFound.jsx'
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoutes from './auth/ProtectedRoutes/ProtectedRoutes.jsx'
+import NotProtectedRoutes from './auth/NotProtectedRoutes/NotProtectedRoutes.jsx'
+import UserContextProvider from './context/User.jsx'
+import Profile from './pages/Profile/components/Profile.jsx'
+import SendCode from './pages/SendCode/components/SendCode.jsx'
+import ForgotPassword from './pages/ForgotPassword/components/ForgotPassword.jsx'
+import Order from './pages/Order/components/Order.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,11 +33,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element:
+          <NotProtectedRoutes>
+            <Signup />
+          </NotProtectedRoutes>
+        ,
       },
       {
         path: "/signin",
-        element: <Signin />,
+        element:
+          <NotProtectedRoutes>
+            <Signin />
+          </NotProtectedRoutes>
+        ,
+      },
+      {
+        path: "/sendcode",
+        element: <SendCode/>,
+      },
+      {
+        path: "/forgotpassword",
+        element: <ForgotPassword/>,
       },
       {
         path: "/categories",
@@ -40,16 +64,31 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
+        path: "/profile",
+        element: <ProtectedRoutes>
+          <Profile />
+        </ProtectedRoutes>
+        ,
+      },
+      {
         path: "/cart",
-        element: <Cart />,
+        element:
+          <ProtectedRoutes>
+            <Cart />
+          </ProtectedRoutes>
+        ,
       },
       {
         path: "/ProductsWithCategory/:id",
         element: <ProductsWithCategory />,
       },
       {
-        path: "/product/:id",
+        path: "/Product/:id",
         element: <Product />,
+      },
+      {
+        path: "/order",
+        element: <Order/>
       },
       {
         path: "*",
@@ -62,7 +101,10 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <UserContextProvider>
+        <RouterProvider router={router} />
+      </UserContextProvider>
+      <ToastContainer />
     </>
   )
 }
