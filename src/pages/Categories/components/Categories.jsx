@@ -10,7 +10,7 @@ function Categories() {
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
-  const getProducts = async () => {
+  const getCategories = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/active?page=1&limit=10`);
       setCategories(data.categories);
@@ -21,47 +21,22 @@ function Categories() {
       setLoader(false);
     }
   };
-  const getSearchProducts = async () => {
-    try {
-      const { result } = await axios.get(`${import.meta.env.VITE_API_URL}/categories/${searchCategory}`);
-      console.log(result.Categories);
-      setCategories(result.categories);
-      setError("");
-    } catch (error) {
-      setError("Error To Load Data");
-    } finally {
-      setLoader(false);
-    }
-  };
   useEffect(() => {
-    getProducts();
+    getCategories();
   }, []);
-  useEffect(() => {
-    getSearchProducts();
-  }, [searchCategory]);
   if (loader) {
     return <Loader />;
   }
-  const handleChange = (e) => {
-    setSearchCategory(e.target.value);
-  };
   return (
     <>
       <div className="pt-4 pb-5 bg-secondary-subtle">
         <div className="container">
           <div className="d-flex justify-content-between pb-3">
             <h2>All Categories</h2>
-            <input
-              type="text"
-              placeholder="Search for specific category :  "
-              className="w-25"
-              value={searchCategory}
-              onChange={handleChange}
-            />
           </div>
-          <div className="row row-gap-2">
+          <div className="d-flex flex-wrap gap-2">
             {categories.map((category) => (
-              <NavLink className="text-decoration-none col-2" to={`/ProductsWithCategory/${category._id}`} key={category._id}>
+              <NavLink className="text-decoration-none " to={`/ProductsWithCategory/${category._id}`} key={category._id}>
                 <div
                   className="card"
                   style={{ width: "10rem", height: "18rem" }}

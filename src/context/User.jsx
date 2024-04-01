@@ -6,7 +6,7 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
     const [userToken, setUserToken] = useState(localStorage.getItem('userToken'))
     const [userName, setUserName] = useState(null);
-    
+
     const getUserData = () => {
         if (userToken != null) {
             const decoded = jwtDecode(userToken);

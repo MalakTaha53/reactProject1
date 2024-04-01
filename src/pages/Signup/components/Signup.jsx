@@ -12,7 +12,7 @@ function Signup() {
     image: '',
   });
   const [errors, setErrors] = useState([]);
-  const [loader,setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,7 +74,7 @@ function Signup() {
             transition: Bounce,
           });
         }
-      }finally{
+      } finally {
         setLoader(false);
       }
     }
@@ -120,7 +120,7 @@ function Signup() {
                 <label for="userImage" className="form-label">User Image</label>
                 <input type="file" className="form-control" id="userImage" name="image" onChange={handleChangeImage} />
               </div>
-              <button type="submit" className="btn btn-primary w-100" disabled={loader?'disabled':null}>{!loader?'Sing Up':'wait...'}</button>
+              <button type="submit" className="btn btn-primary w-100" disabled={loader ? 'disabled' : null}>{!loader ? 'Sing Up' : 'wait...'}</button>
             </form>
           </div>
         </div>

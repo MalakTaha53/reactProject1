@@ -5,12 +5,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "../../../../node_modules/swiper/swiper-bundle.min.css";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import Style from "../components/Home.module.css";
+import { NavLink } from "react-router-dom";
 function Home() {
   const [categories, setCategories] = useState([]);
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState("");
 
-  const getProducts = async () => {
+  const getCategories = async () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/active?page=1&limit=9`);
       const data = await response.json();
@@ -23,7 +24,7 @@ function Home() {
     }
   };
   useEffect(() => {
-    getProducts();
+    getCategories();
   }, []);
   if (loader) {
     return <Loader />;
@@ -47,16 +48,18 @@ function Home() {
             >
               {categories.map((category) => (
                 <SwiperSlide key={category._id}>
-                  <div className="card col w-100 h-100">
-                    <img
-                      src={category.image.secure_url}
-                      className="card-img-top p-2"
-                      alt={category.name}
-                    />
-                    <h6 className="text-capitalize text-center">
-                      {category.name}
-                    </h6>
-                  </div>
+                  <NavLink className="text-decoration-none col-2" to={`/ProductsWithCategory/${category._id}`} key={category._id}>
+                    <div className="card col w-100 h-100">
+                      <img
+                        src={category.image.secure_url}
+                        className="card-img-top p-2"
+                        alt={category.name}
+                      />
+                      <h6 className="text-capitalize text-center">
+                        {category.name}
+                      </h6>
+                    </div>
+                  </NavLink>
                 </SwiperSlide>
               ))}
             </Swiper>

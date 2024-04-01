@@ -43,7 +43,6 @@ function ForgotPassword() {
         navigate('/signin');
       }
     } catch (error) {
-      console.log(error);
       toast.error('Please check your information', {
         position: "top-right",
         autoClose: 3000,

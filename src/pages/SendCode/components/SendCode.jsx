@@ -45,7 +45,6 @@ function SendCode() {
       setLoader(false);
     }
   }
-
   return (
     <>
       <div className="bg-secondary-subtle pt-5 pb-5">

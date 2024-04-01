@@ -22,6 +22,7 @@ import Profile from './pages/Profile/components/Profile.jsx'
 import SendCode from './pages/SendCode/components/SendCode.jsx'
 import ForgotPassword from './pages/ForgotPassword/components/ForgotPassword.jsx'
 import Order from './pages/Order/components/Order.jsx'
+import CartContextProvider from './context/Cart.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,11 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/sendcode",
-        element: <SendCode/>,
+        element: <SendCode />,
       },
       {
         path: "/forgotpassword",
-        element: <ForgotPassword/>,
+        element: <ForgotPassword />,
       },
       {
         path: "/categories",
@@ -74,7 +75,9 @@ const router = createBrowserRouter([
         path: "/cart",
         element:
           <ProtectedRoutes>
-            <Cart />
+            <CartContextProvider>
+              <Cart />
+            </CartContextProvider>
           </ProtectedRoutes>
         ,
       },
@@ -88,7 +91,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/order",
-        element: <Order/>
+        element: <Order />,
       },
       {
         path: "*",
